@@ -16,11 +16,16 @@ namespace auth5.Controllers
             _logger = logger;
             _context = context;
         }
-        [Authorize(Roles = "admin, user")]
         public IActionResult Index()
+        {
+            return View();
+        }
+        [Authorize(Roles = "admin")]
+        public IActionResult Usermgmt()
         {
             return View(_context.Users);
         }
+        /*
         [Authorize(Roles = "admin, user")]
         public IActionResult Messages()
         {
@@ -28,6 +33,7 @@ namespace auth5.Controllers
             int id = _context.Users.FirstOrDefault(x => x.Email == email).Id;
             return View(_context.Messages.Include(x => x.Sender).Where(x => x.ReceiverId == id));
         }
+        */
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

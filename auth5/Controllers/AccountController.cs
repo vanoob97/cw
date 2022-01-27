@@ -1,4 +1,5 @@
 ﻿using auth5.Models;
+using auth5.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,15 @@ namespace auth5.Controllers
         public AccountController(ApplicationContext context)
         {
             _context = context;
+        }
+        [HttpGet]
+        public async Task<IActionResult> MyPage(int id)
+        {
+            User user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+            string email = user.Email;
+            List<ItemCollection> collections = await _context.Collections.Where(c => c.OwnerEmail == email).ToListAsync<ItemCollection>();
+            UserCollections uc =  new UserCollections { Email = email, Collections = collections };
+            return View(uc);
         }
         [HttpGet]
         public IActionResult Register()
@@ -89,12 +99,14 @@ namespace auth5.Controllers
         [HttpPost]
         public JsonResult Delete(string[] id)
         {
+            /*
             foreach (var msg in _context.Messages.
                 Where(x => id.Contains(x.SenderId.ToString()) || id.Contains(x.ReceiverId.ToString())))
             {
                 _context.Messages.Remove(msg);
             }
             _context.SaveChanges();
+            */
             return ProcessUsers(id, (x) => {
                 _context.Users.Remove(x); 
             });
@@ -124,6 +136,7 @@ namespace auth5.Controllers
                 _context.Users.Update(x);
             });
         }
+        /*
         [HttpPost]
         public JsonResult Send(string[] id, string sender, string text)
         {
@@ -143,6 +156,7 @@ namespace auth5.Controllers
             _context.SaveChanges();
             return Json(true);
         }
+        */
         private JsonResult ProcessUsers(string[] id, Action<User> process) {
             var users = _context.Users
                 .Where(u => id.Contains(u.Id.ToString()) && u.Status != "Immune");

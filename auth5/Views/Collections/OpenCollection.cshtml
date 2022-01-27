@@ -1,0 +1,76 @@
+﻿@model auth5.Models.ItemCollection
+<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Title</th>
+                @foreach(string s in Model.StrFields.Split('|'))
+                {
+                    @if (s != "")
+                    {
+                        <th scope="col">@s</th>
+                    }
+                }
+                @foreach(string s in Model.TextFields.Split('|'))
+                {
+                    @if (s != "")
+                    {
+                        <th scope="col">@s</th>
+                    }
+                }
+                @foreach(string s in Model.NumFields.Split('|'))
+                {
+                    @if (s != "")
+                    {
+                        <th scope="col">@s</th>
+                    }
+                }
+                @foreach(string s in Model.BoolFields.Split('|'))
+                {
+                    @if (s != "")
+                    {
+                        <th scope="col">@s</th>
+                    }
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Title</td>
+                    @foreach(string s in item.StrFields.Split('|'))
+                    {
+                        @if (s != "")
+                        {
+                            <td>@s</td>
+                        }
+                    }
+                    @foreach(string s in item.TextFields.Split('|'))
+                    {
+                        @if (s != "")
+                        {
+                            <td>@s</td>
+                        }
+                    }
+                    @foreach(string s in item.NumFields.Split('|'))
+                    {
+                        @if (s != "")
+                        {
+                            <td>@s</td>
+                        }
+                    }
+                    @foreach(string s in item.BoolFields.Split('|'))
+                    {
+                        @if (s != "")
+                        {
+                            <td>@s</td>
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,21 @@
+﻿@model auth5.ViewModels.UserCollections
+@{
+    ViewData["Title"] = "Personal Page (" + Model.Email + ")";
+}
+<div>
+    Personal Page (@Model.Email)
+    @foreach(var item in Model.Collections)
+    {
+        <ul class="nav nav-fill" style="margin-top:10px;">
+            <li class="nav-item">Title: @item.Title</li>
+            <li class="nav-item">Description: @item.Description</li>
+            <li class="nav-item">Owner: @item.OwnerEmail</li>
+            <li class="nav-item">
+                <div class="btn btn-primary">Edit</div>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-primary" id="open" asp-area="" asp-action="OpenCollection" asp-controller="Collections" asp-route-id="@item.Id">Open</a>
+            </li>
+        </ul>
+    }
+</div>
