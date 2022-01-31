@@ -1,4 +1,8 @@
-﻿@model auth5.ViewModels.UserCollections
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+
+@model auth5.ViewModels.UserCollections
 @{
     ViewData["Title"] = "Personal Page (" + Model.Email + ")";
 }
@@ -9,19 +13,19 @@
 </style>
 <div>
     <ul class="nav nav-fill" style="margin-top:10px;">
-        <li class="nav-item">Personal Page (@Model.Email)</li>
+        <li class="nav-item">@Localizer["PersonalPage"] (@Model.Email)</li>
     </ul>
     <table class="table table-bordered">
         <thead>
             <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Title</th>
-                <th scope="col">Theme</th>
-                <th scope="col">Description</th>
-                <th scope="col">Owner</th>
+                <th scope="col">@Localizer["Title"]</th>
+                <th scope="col">@Localizer["Theme"]</th>
+                <th scope="col">@Localizer["Description"]</th>
+                <th scope="col">@Localizer["Owner"]</th>
                 <th style="border-top-style:hidden;border-bottom-style:hidden;border-right-style:hidden;"></th>
                 <th style="border-top-style:hidden;border-bottom-style:hidden;border-right-style:hidden;">
-                    <a  asp-action="AddCollection" asp-controller="Collections" class="btn btn-primary" asp-route-id="@Model.Id">Add Collection</a>
+                    <a  asp-action="AddCollection" asp-controller="Collections" class="btn btn-primary" asp-route-id="@Model.Id">@Localizer["AddCollection"]</a>
                 </th>
                 <th style="border-top-style:hidden;border-bottom-style:hidden;border-right-style:hidden;"></th>
             </tr>
@@ -36,13 +40,13 @@
                     <td>@item.Description</td>
                     <td>@item.OwnerEmail</td>
                     <td style="border-top-style:hidden;border-bottom-style:hidden;border-right-style:hidden;">
-                                <a class="btn btn-primary" id="edit" asp-area="" asp-action="EditCollection" asp-controller="Collections" asp-route-id="@item.Id">Edit</a>
+                                <a class="btn btn-primary" id="edit" asp-area="" asp-action="EditCollection" asp-controller="Collections" asp-route-id="@item.Id">@Localizer["Edit"]</a>
                     </td>
                     <td style="border-top-style:hidden;border-bottom-style:hidden;border-right-style:hidden;">
-                                <a class="btn btn-primary" id="open" asp-area="" asp-action="OpenCollection" asp-controller="Collections" asp-route-id="@item.Id">Open</a>
+                                <a class="btn btn-primary" id="open" asp-area="" asp-action="OpenCollection" asp-controller="Collections" asp-route-id="@item.Id">@Localizer["Open"]</a>
                     </td>
                     <td style="border-top-style:hidden;border-bottom-style:hidden;border-right-style:hidden;">
-                                <a class="btn btn-primary" id="delete" asp-area="" asp-action="DeleteCollection" asp-controller="Collections" asp-route-id="@item.Id">Delete</a>
+                                <a class="btn btn-primary" id="delete" asp-area="" asp-action="DeleteCollection" asp-controller="Collections" asp-route-id="@item.Id">@Localizer["Delete"]</a>
                     </td>
                 </tr>
             }

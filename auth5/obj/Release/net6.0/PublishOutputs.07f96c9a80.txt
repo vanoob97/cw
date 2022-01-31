@@ -4,6 +4,8 @@ C:\Users\vanoo\source\repos\auth5\auth5\obj\Release\net6.0\PubTmp\Out\appsetting
 C:\Users\vanoo\source\repos\auth5\auth5\obj\Release\net6.0\PubTmp\Out\auth5.dll
 C:\Users\vanoo\source\repos\auth5\auth5\obj\Release\net6.0\PubTmp\Out\auth5.runtimeconfig.json
 C:\Users\vanoo\source\repos\auth5\auth5\obj\Release\net6.0\PubTmp\Out\auth5.pdb
+C:\Users\vanoo\source\repos\auth5\auth5\obj\Release\net6.0\PubTmp\Out\en\auth5.resources.dll
+C:\Users\vanoo\source\repos\auth5\auth5\obj\Release\net6.0\PubTmp\Out\ru\auth5.resources.dll
 C:\Users\vanoo\source\repos\auth5\auth5\obj\Release\net6.0\PubTmp\Out\Microsoft.Data.SqlClient.dll
 C:\Users\vanoo\source\repos\auth5\auth5\obj\Release\net6.0\PubTmp\Out\Microsoft.EntityFrameworkCore.dll
 C:\Users\vanoo\source\repos\auth5\auth5\obj\Release\net6.0\PubTmp\Out\Microsoft.EntityFrameworkCore.Abstractions.dll

@@ -1,21 +1,24 @@
-﻿@model auth5.ViewModels.HomePage
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@model auth5.ViewModels.HomePage
 @{
     ViewData["Title"] = "Home Page";
 }
-Most recent items:
+@Localizer["RecentItems"]:
 @foreach(Item i in Model.Items){
     <a class="btn btn-primary" id="open" asp-area="" asp-action="OpenItem" asp-controller="Collections" asp-route-id="@i.Id">Id: @i.Id</a>
 }
-<div class="nav justify-content-center">The biggest collections:</div>
+<div class="nav justify-content-center">@Localizer["BiggestCollections"]:</div>
 <div>
     <table class="table table-bordered">
         <thead>
             <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Title</th>
-                <th scope="col">Theme</th>
-                <th scope="col">Description</th>
-                <th scope="col">Owner</th>
+                <th scope="col">@Localizer["Title"]</th>
+                <th scope="col">@Localizer["Theme"]</th>
+                <th scope="col">@Localizer["Description"]</th>
+                <th scope="col">@Localizer["Owner"]</th>
                 <th style="border-top-style:hidden;border-bottom-style:hidden;border-right-style:hidden;"></th>
             </tr>
         </thead>
@@ -29,7 +32,7 @@ Most recent items:
                     <td>@item.Description</td>
                     <td>@item.OwnerEmail</td>
                     <td style="border-top-style:hidden;border-bottom-style:hidden;border-right-style:hidden;">
-                                <a class="btn btn-primary" id="open" asp-area="" asp-action="OpenCollection" asp-controller="Collections" asp-route-id="@item.Id">Open</a>
+                                <a class="btn btn-primary" id="open" asp-area="" asp-action="OpenCollection" asp-controller="Collections" asp-route-id="@item.Id">@Localizer["Open"]</a>
                     </td>
                 </tr>
             }

@@ -116,7 +116,6 @@ namespace auth5.Controllers
             return ProcessUsers(id, (x) => {
                 _context.Users.Remove(x); 
             });
-            return Json(true);
         }
         [Authorize(Roles = "admin")]
         [HttpPost]

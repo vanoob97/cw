@@ -13,6 +13,14 @@
         },
         "runtime": {
           "auth5.dll": {}
+        },
+        "resources": {
+          "en/auth5.resources.dll": {
+            "locale": "en"
+          },
+          "ru/auth5.resources.dll": {
+            "locale": "ru"
+          }
         }
       },
       "Humanizer.Core/2.8.26": {},

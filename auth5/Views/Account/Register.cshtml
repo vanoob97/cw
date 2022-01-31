@@ -1,4 +1,7 @@
-﻿@model auth5.Models.RegisterModel
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@model auth5.Models.RegisterModel
 @{
 }
 
@@ -6,31 +9,31 @@
     <div class="container mt-5">
         <div class="row justify-content-center align-items-center">
             <div class="col-sm-12 col-md-12 col-lg-4">
-                <h1 class="mb-3">Register</h1>
+                <h1 class="mb-3">@Localizer["Register"]</h1>
                 <div asp-validation-summary="All" class="text-danger">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" asp-for="Name">Name</label>
+                    <label class="form-label" asp-for="Name">@Localizer["Name"]</label>
                     <input type="text" asp-for="Name" class="form-control"/>
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" asp-for="Email">Email Address</label>
+                    <label class="form-label" asp-for="Email">@Localizer["Email"]</label>
                     <input type="email" asp-for="Email" class="form-control"/>
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" asp-for="Password">Password</label>
+                    <label class="form-label" asp-for="Password">@Localizer["Password"]</label>
                     <input type="text" asp-for="Password" class="form-control"/>
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" asp-for="ConfirmPassword">Confirm Password</label>
+                    <label class="form-label" asp-for="ConfirmPassword">@Localizer["ConfirmPassword"]</label>
                     <input type="text" asp-for="ConfirmPassword" class="form-control"/>
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">Register</button>
+                    <button type="submit" class="btn btn-primary">@Localizer["Register"]</button>
                 </div>                
             </div>
         </div>

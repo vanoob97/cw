@@ -1,4 +1,7 @@
-﻿@model auth5.Models.EditItemModel
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@model auth5.Models.EditItemModel
 @{
 }
 
@@ -6,11 +9,11 @@
     <div class="container mt-5">
         <div class="row justify-content-center align-items-center">
             <div class="col-sm-12 col-md-12 col-lg-4">
-                <h1 class="mb-3">Edit Item</h1>
+                <h1 class="mb-3">@Localizer["EditItem"]</h1>
                 <div asp-validation-summary="All" class="text-danger">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" asp-for="Title">Title</label>
+                    <label class="form-label" asp-for="Title">@Localizer["Title"]</label>
                     <input type="text" asp-for="Title" value="@ViewBag.Item.Title" class="form-control"/>
                     <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
@@ -24,7 +27,7 @@
                             string[] it_split = ViewBag.Item.StrFields.Split('|');
                             for (int i = 0; i < coll_split.Length; i++)
                             {
-                                <label class="form-label" asp-for="StrFields">|String| @coll_split[i]</label>
+                                <label class="form-label" asp-for="StrFields">|@Localizer["Str"]| @coll_split[i]</label>
                                 <input type="text" asp-for="StrFields" value="@it_split[i]" class="form-control"/>
                             }
                             <span asp-validation-for="StrFields" class="text-danger"></span>
@@ -43,7 +46,7 @@
                             string[] it_split = ViewBag.Item.TextFields.Split('|');
                             for (int i = 0; i < coll_split.Length; i++)
                             {
-                                <label class="form-label" asp-for="TextFields">|Text| @coll_split[i]</label>
+                                <label class="form-label" asp-for="TextFields">|@Localizer["Text"]| @coll_split[i]</label>
                                 <input type="text" asp-for="TextFields" value="@it_split[i]" class="form-control"/>
                             }
                             <span asp-validation-for="TextFields" class="text-danger"></span>
@@ -62,7 +65,7 @@
                             string[] it_split = ViewBag.Item.NumFields.Split('|');
                             for (int i = 0; i < coll_split.Length; i++)
                             {
-                                <label class="form-label" asp-for="NumFields">|Number| @coll_split[i]</label>
+                                <label class="form-label" asp-for="NumFields">|@Localizer["Num"]| @coll_split[i]</label>
                                 <input type="number" asp-for="NumFields" value="@System.Convert.ToInt32(it_split[i])" class="form-control"/>
                             }
                             <span asp-validation-for="NumFields" class="text-danger"></span>
@@ -81,7 +84,7 @@
                             string[] it_split = ViewBag.Item.BoolFields.Split('|');
                             for (int i = 0; i < coll_split.Length; i++)
                             {
-                                <label class="form-label" asp-for="BoolFields">|Boolean| @coll_split[i]</label>
+                                <label class="form-label" asp-for="BoolFields">|@Localizer["Bool"]| @coll_split[i]</label>
                                 <select asp-for="BoolFields">
                                     <option>True</option>
                                     <option>False</option>
@@ -96,7 +99,7 @@
                     }
                 </div>
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary">@Localizer["Save"]</button>
                 </div>                
             </div>
         </div>

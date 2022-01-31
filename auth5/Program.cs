@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using auth5.Models;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +14,20 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
         options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
     });
-builder.Services.AddControllersWithViews();
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+builder.Services.AddControllersWithViews().AddDataAnnotationsLocalization().AddViewLocalization();
+builder.Services.Configure<RequestLocalizationOptions>(options => {
+    var supportedCultures = new[]
+    {
+        new CultureInfo("en"),
+        new CultureInfo("ru")
+    };
+    options.DefaultRequestCulture = new RequestCulture("ru");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+});
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 
 var app = builder.Build();
 
@@ -27,6 +41,7 @@ if (!app.Environment.IsDevelopment())
 app.UseDeveloperExceptionPage();
 
 app.UseHttpsRedirection();
+app.UseRequestLocalization();
 app.UseStaticFiles();
 
 app.UseRouting();

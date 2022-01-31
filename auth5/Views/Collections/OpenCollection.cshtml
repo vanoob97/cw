@@ -1,4 +1,7 @@
 ﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
 @model auth5.Models.ItemCollection
 <style type="text/css">
     .table th, .table td {
@@ -10,7 +13,7 @@
         <thead>
             <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Title</th>
+                <th scope="col">@Localizer["Title"]</th>
                 @foreach(string s in Model.StrFields.Split('|'))
                 {
                     @if (s != "")
@@ -43,7 +46,7 @@
                 @if (User.IsInRole("admin") || (User.IsInRole("user") && User.FindFirst(x => x.Type == ClaimsIdentity.DefaultNameClaimType).Value == Model.OwnerEmail))
                 {
                     <th style="border-top-style:hidden;border-bottom-style:hidden;border-right-style:hidden;">
-                        <a  asp-action="AddItem" asp-controller="Collections" class="btn btn-primary" asp-route-id="@Model.Id">Add Item</a>
+                        <a  asp-action="AddItem" asp-controller="Collections" class="btn btn-primary" asp-route-id="@Model.Id">@Localizer["AddItem"]</a>
                     </th>
                     <th style="border-top-style:hidden;border-bottom-style:hidden;border-right-style:hidden;"></th>
                 }
@@ -86,16 +89,16 @@
                     @if (User.IsInRole("admin") || (User.IsInRole("user") && User.FindFirst(x => x.Type == ClaimsIdentity.DefaultNameClaimType).Value == Model.OwnerEmail))
                     {
                         <td style="border-top-style:hidden;border-bottom-style:hidden;border-right-style:hidden;">
-                            <a class="btn btn-primary" id="edit" asp-area="" asp-action="EditItem" asp-controller="Collections" asp-route-id="@item.Id">Edit</a>
+                            <a class="btn btn-primary" id="edit" asp-area="" asp-action="EditItem" asp-controller="Collections" asp-route-id="@item.Id">@Localizer["Edit"]</a>
                         </td>
                     }
                     <td style="border-top-style:hidden;border-bottom-style:hidden;border-right-style:hidden;">
-                                <a class="btn btn-primary" id="open" asp-area="" asp-action="OpenItem" asp-controller="Collections" asp-route-id="@item.Id">Open</a>
+                                <a class="btn btn-primary" id="open" asp-area="" asp-action="OpenItem" asp-controller="Collections" asp-route-id="@item.Id">@Localizer["Open"]</a>
                     </td>
                     @if (User.IsInRole("admin") || (User.IsInRole("user") && User.FindFirst(x => x.Type == ClaimsIdentity.DefaultNameClaimType).Value == Model.OwnerEmail))
                     {
                         <td style="border-top-style:hidden;border-bottom-style:hidden;border-right-style:hidden;">
-                            <a class="btn btn-primary" id="delete" asp-area="" asp-action="DeleteItem" asp-controller="Collections" asp-route-id="@item.Id">Delete</a>
+                            <a class="btn btn-primary" id="delete" asp-area="" asp-action="DeleteItem" asp-controller="Collections" asp-route-id="@item.Id">@Localizer["Delete"]</a>
                         </td>
                     }
                 </tr>

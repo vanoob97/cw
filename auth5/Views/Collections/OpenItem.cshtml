@@ -1,4 +1,7 @@
-﻿@model auth5.Models.Item
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@model auth5.Models.Item
 <style type="text/css">
     .table th, .table td {
         text-align: center;
@@ -9,7 +12,7 @@
         <thead>
             <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Title</th>
+                <th scope="col">@Localizer["Title"]</th>
                 @foreach(string s in ViewBag.Collection.StrFields.Split('|'))
                 {
                     @if (s != "")
@@ -38,7 +41,7 @@
                         <th scope="col">@s</th>
                     }
                 }
-                <th scope="col">Likes</th>
+                <th scope="col">@Localizer["Like"]</th>
                 @if (User.IsInRole("admin") || User.IsInRole("user"))
                 {
                     <th style="border-top-style:hidden;border-bottom-style:hidden;border-right-style:hidden;"></th>
@@ -81,7 +84,7 @@
                 @if (User.IsInRole("admin") || User.IsInRole("user"))
                 {
                     <td style="border-top-style:hidden;border-bottom-style:hidden;border-right-style:hidden;">
-                        <a class="btn btn-primary" id="edit" asp-area="" asp-action="LikeItem" asp-controller="Collections" asp-route-id="@Model.Id">Like</a>
+                        <a class="btn btn-primary" id="edit" asp-area="" asp-action="LikeItem" asp-controller="Collections" asp-route-id="@Model.Id">@Localizer["Like"]</a>
                     </td>
                 }
             </tr>
@@ -107,7 +110,7 @@
             <input type="text" name="text" class="form-control cmnt" style="width: 50%; margin-top: 1em;"/>
         </div>
         <div class="nav justify-content-center" style="margin-top: 1em;">
-            <input type="submit" value="Comment" class="btn btn-primary"/>
+            <input type="submit" value="@Localizer["Comment"]" class="btn btn-primary"/>
         </div>
         </form>
     }

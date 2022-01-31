@@ -1,4 +1,10 @@
-﻿@using System.Security.Claims
+﻿@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using System.Security.Claims
+@using Microsoft.Extensions.Options
+ 
+@inject IViewLocalizer Localizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
 @inject IHttpContextAccessor httpContentAccessor
 <!DOCTYPE html>
 <html lang="en">
@@ -40,19 +46,19 @@
                     @{
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
                             </li>
                             @{
                                 if(User.IsInRole("admin")){
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Usermgmt">User management</a>
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Usermgmt">@Localizer["Usermgmt"]</a>
                                     </li>
                                 }
                             }
                             @{
                                 if(User.IsInRole("admin") || User.IsInRole("user")){
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="MyPage">Personal Page</a>
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="MyPage">@Localizer["PersonalPage"]</a>
                                     </li>
                                 }
                             }
@@ -64,7 +70,7 @@
                                     <div class="nav text-dark">@User.FindFirst(x => x.Type == ClaimsIdentity.DefaultNameClaimType).Value</div>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="btn btn-primary" id="logout" asp-area="" asp-action="Logout" asp-controller="Account">Logout</a>
+                                    <a class="btn btn-primary" id="logout" asp-area="" asp-action="Logout" asp-controller="Account">@Localizer["Logout"]</a>
                                 </li>
                             </ul>
                         }
@@ -72,10 +78,10 @@
                         {
                             <ul class="navbar-nav d-flex justify-content-end flex-grow-1">
                                 <li class="nav-item">
-                                    <a  asp-action="Login" asp-controller="Account" class="btn btn-primary">Login</a>
+                                    <a  asp-action="Login" asp-controller="Account" class="btn btn-primary">@Localizer["Login"]</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-action="Register" asp-controller="Account" class="btn">Register</a>
+                                    <a class="nav-link text-dark" asp-action="Register" asp-controller="Account" class="btn">@Localizer["Register"]</a>
                                 </li>
                             </ul>
                         }
@@ -98,22 +104,34 @@
                         var thm = httpContentAccessor.HttpContext.Request.Cookies["theme"];
                         if (thm == null)
                         {
-                            <a  asp-action="SwitchTheme" asp-controller="Home" class="btn btn-primary" asp-route-id="1">Switch Theme</a>
+                            <a  asp-action="SwitchTheme" asp-controller="Home" class="btn btn-primary" asp-route-id="1">@Localizer["SwitchTheme"]</a>
                         }
                         else
                         {
                             if (thm.ToString() == "light")
                             {
-                                <a  asp-action="SwitchTheme" asp-controller="Home" class="btn btn-primary" asp-route-id="1">Switch Theme</a>
+                                <a  asp-action="SwitchTheme" asp-controller="Home" class="btn btn-primary" asp-route-id="1">@Localizer["SwitchTheme"]</a>
                             }
                             else if (thm.ToString() == "dark")
                             {
-                                <a  asp-action="SwitchTheme" asp-controller="Home" class="btn btn-primary" asp-route-id="0">Switch Theme</a>
+                                <a  asp-action="SwitchTheme" asp-controller="Home" class="btn btn-primary" asp-route-id="0">@Localizer["SwitchTheme"]</a>
                             }
                         }
                     }
                 </li>
+                <li class="nav-item">
+                    @{
+                        var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+                        var cultureItems = LocOptions.Value.SupportedUICultures
+                            .Select(c => new SelectListItem { Value = c.Name, Text = c.NativeName })
+                            .ToList();
+                        <form asp-controller="Home" asp-action="SetLanguage" style="margin-top:20px;" asp-route-returnUrl="@Context.Request.Path" method="post" class="form-horizontal">
+                            @Localizer["Language"]: <select name="culture" onchange="this.form.submit();" asp-for="@requestCulture.RequestCulture.UICulture.Name" asp-items="cultureItems"></select>
+                        </form>
+                    }
+                </li>
             </ul>
+            
         </footer>
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -1,4 +1,7 @@
 ﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
 @model IEnumerable<auth5.Models.User>
 @{
     ViewData["Title"] = "User management";
@@ -10,23 +13,23 @@
     {
         <button class="btn block">
             <i class="fa fa-lock"></i>
-            <div>Block</div>
+            <div>@Localizer["Block"]</div>
         </button>
         <button class="btn unblock">
             <i class="fa fa-unlock"></i>
-            <div>Unblock</div>
+            <div>@Localizer["Unblock"]</div>
         </button>
         <button class="btn delete">
             <i class="fa fa-user-times"></i>
-            <div>Delete</div>
+            <div>@Localizer["Delete"]</div>
         </button>
         <button class="btn promote">
             <i class="fa fa-level-up"></i>
-            <div>Promote to Admin</div>
+            <div>@Localizer["Promote"]</div>
         </button>
         <button class="btn demote">
             <i class="fa fa-level-down"></i>
-            <div>Demote to User</div>
+            <div>@Localizer["Demote"]</div>
         </button>
     }
 </div>
@@ -40,12 +43,12 @@
                             <input type="checkbox" class="select-all checkbox" name="select-all">
                         </th>
                         <th scope="col">Id</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Registration Date</th>
-                        <th scope="col">Last Login</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Role</th>
+                        <th scope="col">@Localizer["Name"]</th>
+                        <th scope="col">@Localizer["Email"]</th>
+                        <th scope="col">@Localizer["RegDate"]</th>
+                        <th scope="col">@Localizer["LastLogin"]</th>
+                        <th scope="col">@Localizer["Status"]</th>
+                        <th scope="col">@Localizer["Role"]</th>
                         <th style="border-top-style:hidden;border-bottom-style:hidden;border-right-style:hidden;"></th>
                     </tr>
                 </thead>
@@ -66,10 +69,10 @@
                             <td>@item.Email</td>
                             <td>@item.CreatedDate</td>
                             <td>@item.LastLogin</td>
-                            <td>@item.Status</td>
-                            <td>@(item.RoleId == 1 ? "Admin" : "User")</td>
+                            <td>@Localizer[item.Status]</td>
+                            <td>@(Localizer[item.RoleId == 1 ? "Admin" : "User"])</td>
                             <td style="border-top-style:hidden;border-bottom-style:hidden;border-right-style:hidden;">
-                                <a class="btn btn-primary" id="mypage" asp-area="" asp-action="PersonalPage" asp-controller="Account" asp-route-id="@item.Id">Personal Page</a>
+                                <a class="btn btn-primary" id="mypage" asp-area="" asp-action="PersonalPage" asp-controller="Account" asp-route-id="@item.Id">@Localizer["PersonalPage"]</a>
                             </td>
                         </tr>    
                     }
@@ -96,7 +99,7 @@
                 if(response){
                     $.each($("input.select-item:checked").closest("td").next("td").next("td").next("td").next("td").next("td").next("td"),
                         function(){
-                            $(this).text("Blocked");
+                            $(this).text("@Localizer["Blocked"]");
                         });
                 }
             });
@@ -115,7 +118,7 @@
                 if(response){
                     $.each($("input.select-item:checked").closest("td").next("td").next("td").next("td").next("td").next("td").next("td"),
                         function(){
-                            $(this).text("Normal");
+                            $(this).text("@Localizer["Normal"]");
                         });
                 }
             });
@@ -148,7 +151,7 @@
                 if(response){
                     $.each($("input.select-item:checked").closest("td").next("td").next("td").next("td").next("td").next("td").next("td").next("td"),
                         function(){
-                            $(this).text("Admin");
+                            $(this).text("@Localizer["Admin"]");
                         });
                 }
             });
@@ -161,7 +164,7 @@
                 if(response){
                     $.each($("input.select-item:checked").closest("td").next("td").next("td").next("td").next("td").next("td").next("td").next("td"),
                         function(){
-                            $(this).text("User");
+                            $(this).text("@Localizer["User"]");
                         });
                 }
             });

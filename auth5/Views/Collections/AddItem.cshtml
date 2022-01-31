@@ -1,4 +1,7 @@
-﻿@model auth5.Models.AddItemModel
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@model auth5.Models.AddItemModel
 @{
 }
 
@@ -6,11 +9,11 @@
     <div class="container mt-5">
         <div class="row justify-content-center align-items-center">
             <div class="col-sm-12 col-md-12 col-lg-4">
-                <h1 class="mb-3">Add Item</h1>
+                <h1 class="mb-3">@Localizer["AddItem"]</h1>
                 <div asp-validation-summary="All" class="text-danger">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" asp-for="Title">Title</label>
+                    <label class="form-label" asp-for="Title">@Localizer["Title"]</label>
                     <input type="text" asp-for="Title" class="form-control"/>
                     <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
@@ -21,7 +24,7 @@
                         {
                             @foreach (string s in ViewBag.Collection.StrFields.Split('|'))
                             {
-                                <label class="form-label" asp-for="StrFields">|String| @s</label>
+                                <label class="form-label" asp-for="StrFields">|@Localizer["Str"]| @s</label>
                                 <input type="text" asp-for="StrFields" class="form-control"/>
                             }
                             <span asp-validation-for="StrFields" class="text-danger"></span>
@@ -38,7 +41,7 @@
                         {
                             @foreach (string s in ViewBag.Collection.TextFields.Split('|'))
                             {
-                                <label class="form-label" asp-for="TextFields">|Text| @s</label>
+                                <label class="form-label" asp-for="TextFields">|@Localizer["Text"]| @s</label>
                                 <input type="text" asp-for="TextFields" class="form-control"/>
                             }
                             <span asp-validation-for="TextFields" class="text-danger"></span>
@@ -55,7 +58,7 @@
                         {
                             @foreach (string s in ViewBag.Collection.NumFields.Split('|'))
                             {
-                                <label class="form-label" asp-for="NumFields">|Number| @s</label>
+                                <label class="form-label" asp-for="NumFields">|@Localizer["Num"]| @s</label>
                                 <input type="number" asp-for="NumFields" class="form-control"/>
                             }
                             <span asp-validation-for="NumFields" class="text-danger"></span>
@@ -72,7 +75,7 @@
                         {
                             @foreach (string s in ViewBag.Collection.BoolFields.Split('|'))
                             {
-                                <label class="form-label" asp-for="BoolFields">|Boolean| @s</label>
+                                <label class="form-label" asp-for="BoolFields">|@Localizer["Bool"]| @s</label>
                                 <div>
                                 <select asp-for="BoolFields">
                                     <option>True</option>
@@ -89,7 +92,7 @@
                     }
                 </div>
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">Add</button>
+                    <button type="submit" class="btn btn-primary">@Localizer["Add"]</button>
                 </div>                
             </div>
         </div>

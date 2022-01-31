@@ -1,4 +1,7 @@
-﻿@model auth5.Models.EditCollectionModel
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@model auth5.Models.EditCollectionModel
 @{
 }
 
@@ -6,17 +9,17 @@
     <div class="container mt-5">
         <div class="row justify-content-center align-items-center">
             <div class="col-sm-12 col-md-12 col-lg-4">
-                <h1 class="mb-3">Edit Collection</h1>
+                <h1 class="mb-3">@Localizer["EditCollection"]</h1>
                 <div asp-validation-summary="All" class="text-danger">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" asp-for="Title">Title</label>
+                    <label class="form-label" asp-for="Title">@Localizer["Title"]</label>
                     <input type="text" asp-for="Title" value="@ViewBag.Collection.Title" class="form-control"/>
                     <span asp-validation-for="Title" class="text-danger"></span>
                 </div>
                 <input type="hidden" asp-for="Id" value="@ViewBag.Collection.Id" class="form-control"/>
                 <div class="mb-3">
-                    <label class="form-label" asp-for="Description">Description</label>
+                    <label class="form-label" asp-for="Description">@Localizer["Description"]</label>
                     <input type="text" asp-for="Description" value="@ViewBag.Collection.Description" class="form-control"/>
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
@@ -24,7 +27,7 @@
                     @{
                         if (!String.IsNullOrWhiteSpace(ViewBag.Collection.StrFields))
                         {
-                            <label class="form-label" asp-for="StrFields">String fields</label>
+                            <label class="form-label" asp-for="StrFields">@Localizer["Str"]</label>
                             @foreach (string s in ViewBag.Collection.StrFields.Split('|'))
                             {
                                 <input type="text" asp-for="StrFields" value="@s" class="form-control"/>
@@ -41,7 +44,7 @@
                     @{
                         if (!String.IsNullOrWhiteSpace(ViewBag.Collection.TextFields))
                         {
-                            <label class="form-label" asp-for="TextFields">Text fields</label>
+                            <label class="form-label" asp-for="TextFields">@Localizer["Text"]</label>
                             @foreach (string s in ViewBag.Collection.TextFields.Split('|'))
                             {
                                 <input type="text" asp-for="TextFields" value="@s" class="form-control"/>
@@ -58,7 +61,7 @@
                     @{
                         if (!String.IsNullOrWhiteSpace(ViewBag.Collection.NumFields))
                         {
-                            <label class="form-label" asp-for="NumFields">Number fields</label>
+                            <label class="form-label" asp-for="NumFields">@Localizer["Num"]</label>
                             @foreach (string s in ViewBag.Collection.NumFields.Split('|'))
                             {
                                 <input type="text" asp-for="NumFields" value="@s" class="form-control"/>
@@ -75,7 +78,7 @@
                     @{
                         if (!String.IsNullOrWhiteSpace(ViewBag.Collection.BoolFields))
                         {
-                            <label class="form-label" asp-for="BoolFields">Boolean fields</label>
+                            <label class="form-label" asp-for="BoolFields">@Localizer["Bool"]</label>
                             @foreach (string s in ViewBag.Collection.BoolFields.Split('|'))
                             {
                                 <input type="text" asp-for="BoolFields" value="@s" class="form-control"/>
@@ -89,7 +92,7 @@
                     }
                 </div>
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary">@Localizer["Save"]</button>
                 </div>                
             </div>
         </div>
