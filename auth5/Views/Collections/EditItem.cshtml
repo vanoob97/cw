@@ -1,0 +1,104 @@
+﻿@model auth5.Models.EditItemModel
+@{
+}
+
+<form asp-action="EditItem" asp-controller="Collections" asp-anti-forgery="true">
+    <div class="container mt-5">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-sm-12 col-md-12 col-lg-4">
+                <h1 class="mb-3">Edit Item</h1>
+                <div asp-validation-summary="All" class="text-danger">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Title">Title</label>
+                    <input type="text" asp-for="Title" value="@ViewBag.Item.Title" class="form-control"/>
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <input type="hidden" asp-for="Id" value="@ViewBag.Item.Id" class="form-control"/>
+                <input type="hidden" asp-for="ItemCollectionId" value="@ViewBag.Collection.Id" class="form-control"/>
+                <div class="mb-3">
+                    @{
+                        if (!String.IsNullOrWhiteSpace(ViewBag.Collection.StrFields))
+                        {
+                            string[] coll_split = ViewBag.Collection.StrFields.Split('|');
+                            string[] it_split = ViewBag.Item.StrFields.Split('|');
+                            for (int i = 0; i < coll_split.Length; i++)
+                            {
+                                <label class="form-label" asp-for="StrFields">|String| @coll_split[i]</label>
+                                <input type="text" asp-for="StrFields" value="@it_split[i]" class="form-control"/>
+                            }
+                            <span asp-validation-for="StrFields" class="text-danger"></span>
+                        }
+                        else
+                        {
+                            <input type="hidden" asp-for="StrFields" value="" class="form-control"/>
+                        }
+                    }
+                </div>
+                <div class="mb-3">
+                    @{
+                        if (!String.IsNullOrWhiteSpace(ViewBag.Collection.TextFields))
+                        {
+                            string[] coll_split = ViewBag.Collection.TextFields.Split('|');
+                            string[] it_split = ViewBag.Item.TextFields.Split('|');
+                            for (int i = 0; i < coll_split.Length; i++)
+                            {
+                                <label class="form-label" asp-for="TextFields">|Text| @coll_split[i]</label>
+                                <input type="text" asp-for="TextFields" value="@it_split[i]" class="form-control"/>
+                            }
+                            <span asp-validation-for="TextFields" class="text-danger"></span>
+                        }
+                        else
+                        {
+                            <input type="hidden" asp-for="TextFields" value="" class="form-control"/>
+                        }
+                    }
+                </div>
+                <div class="mb-3">
+                    @{
+                        if (!String.IsNullOrWhiteSpace(ViewBag.Collection.NumFields))
+                        {
+                            string[] coll_split = ViewBag.Collection.NumFields.Split('|');
+                            string[] it_split = ViewBag.Item.NumFields.Split('|');
+                            for (int i = 0; i < coll_split.Length; i++)
+                            {
+                                <label class="form-label" asp-for="NumFields">|Number| @coll_split[i]</label>
+                                <input type="number" asp-for="NumFields" value="@System.Convert.ToInt32(it_split[i])" class="form-control"/>
+                            }
+                            <span asp-validation-for="NumFields" class="text-danger"></span>
+                        }
+                        else
+                        {
+                            <input type="hidden" asp-for="NumFields" value="0" class="form-control"/>
+                        }
+                    }
+                </div>
+                <div class="mb-3">
+                    @{
+                        if (!String.IsNullOrWhiteSpace(ViewBag.Collection.BoolFields))
+                        {
+                            string[] coll_split = ViewBag.Collection.BoolFields.Split('|');
+                            string[] it_split = ViewBag.Item.BoolFields.Split('|');
+                            for (int i = 0; i < coll_split.Length; i++)
+                            {
+                                <label class="form-label" asp-for="BoolFields">|Boolean| @coll_split[i]</label>
+                                <select asp-for="BoolFields">
+                                    <option>True</option>
+                                    <option>False</option>
+                                </select>
+                            }
+                            <span asp-validation-for="BoolFields" class="text-danger"></span>
+                        }
+                        else
+                        {
+                            <input type="hidden" asp-for="BoolFields" value="" class="form-control"/>
+                        }
+                    }
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>                
+            </div>
+        </div>
+    </div>
+</form>

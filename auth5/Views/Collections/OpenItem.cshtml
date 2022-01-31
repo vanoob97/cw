@@ -1,0 +1,114 @@
+﻿@model auth5.Models.Item
+<style type="text/css">
+    .table th, .table td {
+        text-align: center;
+    }
+</style>
+<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Title</th>
+                @foreach(string s in ViewBag.Collection.StrFields.Split('|'))
+                {
+                    @if (s != "")
+                    {
+                        <th scope="col">@s</th>
+                    }
+                }
+                @foreach(string s in ViewBag.Collection.TextFields.Split('|'))
+                {
+                    @if (s != "")
+                    {
+                        <th scope="col">@s</th>
+                    }
+                }
+                @foreach(string s in ViewBag.Collection.NumFields.Split('|'))
+                {
+                    @if (s != "")
+                    {
+                        <th scope="col">@s</th>
+                    }
+                }
+                @foreach(string s in ViewBag.Collection.BoolFields.Split('|'))
+                {
+                    @if (s != "")
+                    {
+                        <th scope="col">@s</th>
+                    }
+                }
+                <th scope="col">Likes</th>
+                @if (User.IsInRole("admin") || User.IsInRole("user"))
+                {
+                    <th style="border-top-style:hidden;border-bottom-style:hidden;border-right-style:hidden;"></th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.Id</td>
+                <td>@Model.Title</td>
+                @foreach(string s in Model.StrFields.Split('|'))
+                {
+                    @if (s != "")
+                    {
+                        <td>@s</td>
+                    }
+                }
+                @foreach(string s in Model.TextFields.Split('|'))
+                {
+                    @if (s != "")
+                    {
+                        <td>@s</td>
+                    }
+                }
+                @foreach(string s in Model.NumFields.Split('|'))
+                {
+                    @if (s != "")
+                    {
+                        <td>@s</td>
+                    }
+                }
+                @foreach(string s in Model.BoolFields.Split('|'))
+                {
+                    @if (s != "")
+                    {
+                        <td>@s</td>
+                    }
+                }
+                <td>@Model.Likes.Count()</td>
+                @if (User.IsInRole("admin") || User.IsInRole("user"))
+                {
+                    <td style="border-top-style:hidden;border-bottom-style:hidden;border-right-style:hidden;">
+                        <a class="btn btn-primary" id="edit" asp-area="" asp-action="LikeItem" asp-controller="Collections" asp-route-id="@Model.Id">Like</a>
+                    </td>
+                }
+            </tr>
+        </tbody>
+    </table>
+    @foreach (string s in Model.Comments.Split("|"))
+    {
+        @if (!String.IsNullOrEmpty(s))
+        {
+            <div  class="form-control justify-content-center" style="border-radius: 25px; border-color: #778899; width: 50%; margin-bottom: 1em;">
+                <div>
+                    <textarea disabled class="form-control msg" style="margin-top: 1em; margin-bottom: 1em;" rows="3">@s</textarea>
+                </div>
+            </div>
+            <div> </div>
+        }
+    }
+    @if (User.IsInRole("admin") || User.IsInRole("user"))
+    {
+        <form method="post" asp-action="Comment" asp-controller="Collections">
+            <div class="nav justify-content-center">
+            <input type="hidden" value="@Model.Id" name="id"/>
+            <input type="text" name="text" class="form-control cmnt" style="width: 50%; margin-top: 1em;"/>
+        </div>
+        <div class="nav justify-content-center" style="margin-top: 1em;">
+            <input type="submit" value="Comment" class="btn btn-primary"/>
+        </div>
+        </form>
+    }
+</div>

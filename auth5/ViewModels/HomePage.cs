@@ -2,10 +2,10 @@
 
 namespace auth5.ViewModels
 {
-    public class UserCollections
+    public class HomePage
     {
-        public int Id { get; set; }
-        public string Email { get; set; }
+        public IList<Item> Items { get; set; }
+
         public IList<ItemCollection> Collections { get; set; }
     }
 }

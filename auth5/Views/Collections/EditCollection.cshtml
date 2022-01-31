@@ -1,0 +1,97 @@
+﻿@model auth5.Models.EditCollectionModel
+@{
+}
+
+<form asp-action="EditCollection" asp-controller="Collections" asp-anti-forgery="true">
+    <div class="container mt-5">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-sm-12 col-md-12 col-lg-4">
+                <h1 class="mb-3">Edit Collection</h1>
+                <div asp-validation-summary="All" class="text-danger">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Title">Title</label>
+                    <input type="text" asp-for="Title" value="@ViewBag.Collection.Title" class="form-control"/>
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <input type="hidden" asp-for="Id" value="@ViewBag.Collection.Id" class="form-control"/>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Description">Description</label>
+                    <input type="text" asp-for="Description" value="@ViewBag.Collection.Description" class="form-control"/>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    @{
+                        if (!String.IsNullOrWhiteSpace(ViewBag.Collection.StrFields))
+                        {
+                            <label class="form-label" asp-for="StrFields">String fields</label>
+                            @foreach (string s in ViewBag.Collection.StrFields.Split('|'))
+                            {
+                                <input type="text" asp-for="StrFields" value="@s" class="form-control"/>
+                            }
+                            <span asp-validation-for="StrFields" class="text-danger"></span>
+                        }
+                        else
+                        {
+                            <input type="hidden" asp-for="StrFields" value="" class="form-control"/>
+                        }
+                    }
+                </div>
+                <div class="mb-3">
+                    @{
+                        if (!String.IsNullOrWhiteSpace(ViewBag.Collection.TextFields))
+                        {
+                            <label class="form-label" asp-for="TextFields">Text fields</label>
+                            @foreach (string s in ViewBag.Collection.TextFields.Split('|'))
+                            {
+                                <input type="text" asp-for="TextFields" value="@s" class="form-control"/>
+                            }
+                            <span asp-validation-for="TextFields" class="text-danger"></span>
+                        }
+                        else
+                        {
+                            <input type="hidden" asp-for="TextFields" value="" class="form-control"/>
+                        }
+                    }
+                </div>
+                <div class="mb-3">
+                    @{
+                        if (!String.IsNullOrWhiteSpace(ViewBag.Collection.NumFields))
+                        {
+                            <label class="form-label" asp-for="NumFields">Number fields</label>
+                            @foreach (string s in ViewBag.Collection.NumFields.Split('|'))
+                            {
+                                <input type="text" asp-for="NumFields" value="@s" class="form-control"/>
+                            }
+                            <span asp-validation-for="NumFields" class="text-danger"></span>
+                        }
+                        else
+                        {
+                            <input type="hidden" asp-for="NumFields" value="" class="form-control"/>
+                        }
+                    }
+                </div>
+                <div class="mb-3">
+                    @{
+                        if (!String.IsNullOrWhiteSpace(ViewBag.Collection.BoolFields))
+                        {
+                            <label class="form-label" asp-for="BoolFields">Boolean fields</label>
+                            @foreach (string s in ViewBag.Collection.BoolFields.Split('|'))
+                            {
+                                <input type="text" asp-for="BoolFields" value="@s" class="form-control"/>
+                            }
+                            <span asp-validation-for="BoolFields" class="text-danger"></span>
+                        }
+                        else
+                        {
+                            <input type="hidden" asp-for="BoolFields" value="" class="form-control"/>
+                        }
+                    }
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>                
+            </div>
+        </div>
+    </div>
+</form>

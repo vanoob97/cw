@@ -9,5 +9,7 @@
         public string StrFields { get; set; }
         public string TextFields { get; set; }
         public string BoolFields { get; set; }
+        public string Comments { get; set; }
+        public string Likes { get; set; }
     }
 }

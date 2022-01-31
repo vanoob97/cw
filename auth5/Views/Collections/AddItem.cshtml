@@ -1,0 +1,97 @@
+﻿@model auth5.Models.AddItemModel
+@{
+}
+
+<form asp-action="AddItem" asp-controller="Collections" asp-anti-forgery="true">
+    <div class="container mt-5">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-sm-12 col-md-12 col-lg-4">
+                <h1 class="mb-3">Add Item</h1>
+                <div asp-validation-summary="All" class="text-danger">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Title">Title</label>
+                    <input type="text" asp-for="Title" class="form-control"/>
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <input type="hidden" asp-for="ItemCollectionId" value="@ViewBag.Collection.Id" class="form-control"/>
+                <div class="mb-3">
+                    @{
+                        if (!String.IsNullOrWhiteSpace(ViewBag.Collection.StrFields))
+                        {
+                            @foreach (string s in ViewBag.Collection.StrFields.Split('|'))
+                            {
+                                <label class="form-label" asp-for="StrFields">|String| @s</label>
+                                <input type="text" asp-for="StrFields" class="form-control"/>
+                            }
+                            <span asp-validation-for="StrFields" class="text-danger"></span>
+                        }
+                        else
+                        {
+                            <input type="hidden" asp-for="StrFields" value="" class="form-control"/>
+                        }
+                    }
+                </div>
+                <div class="mb-3">
+                    @{
+                        if (!String.IsNullOrWhiteSpace(ViewBag.Collection.TextFields))
+                        {
+                            @foreach (string s in ViewBag.Collection.TextFields.Split('|'))
+                            {
+                                <label class="form-label" asp-for="TextFields">|Text| @s</label>
+                                <input type="text" asp-for="TextFields" class="form-control"/>
+                            }
+                            <span asp-validation-for="TextFields" class="text-danger"></span>
+                        }
+                        else
+                        {
+                            <input type="hidden" asp-for="TextFields" value="" class="form-control"/>
+                        }
+                    }
+                </div>
+                <div class="mb-3">
+                    @{
+                        if (!String.IsNullOrWhiteSpace(ViewBag.Collection.NumFields))
+                        {
+                            @foreach (string s in ViewBag.Collection.NumFields.Split('|'))
+                            {
+                                <label class="form-label" asp-for="NumFields">|Number| @s</label>
+                                <input type="number" asp-for="NumFields" class="form-control"/>
+                            }
+                            <span asp-validation-for="NumFields" class="text-danger"></span>
+                        }
+                        else
+                        {
+                            <input type="hidden" asp-for="NumFields" value="0" class="form-control"/>
+                        }
+                    }
+                </div>
+                <div class="mb-3">
+                    @{
+                        if (!String.IsNullOrWhiteSpace(ViewBag.Collection.BoolFields))
+                        {
+                            @foreach (string s in ViewBag.Collection.BoolFields.Split('|'))
+                            {
+                                <label class="form-label" asp-for="BoolFields">|Boolean| @s</label>
+                                <div>
+                                <select asp-for="BoolFields">
+                                    <option>True</option>
+                                    <option>False</option>
+                                </select>
+                                </div>
+                            }
+                            <span asp-validation-for="BoolFields" class="text-danger"></span>
+                        }
+                        else
+                        {
+                            <input type="hidden" asp-for="BoolFields" value="" class="form-control"/>
+                        }
+                    }
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>                
+            </div>
+        </div>
+    </div>
+</form>

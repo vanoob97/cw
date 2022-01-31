@@ -1,4 +1,5 @@
 ﻿using auth5.Models;
+using auth5.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,22 +19,26 @@ namespace auth5.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            List<Item> items = new List<Item>();
+            foreach (ItemCollection c in _context.Collections) {
+                items.AddRange(c.Items);
+            }
+            List<ItemCollection> collections = _context.Collections.OrderByDescending(x => x.Items.Count).ToList();
+            HomePage home = new HomePage { Items = items.OrderByDescending(x => x.Id).Take(3).ToList<Item>(), Collections = collections.Take(3).ToList() };
+            return View(home);
         }
         [Authorize(Roles = "admin")]
         public IActionResult Usermgmt()
         {
             return View(_context.Users);
         }
-        /*
-        [Authorize(Roles = "admin, user")]
-        public IActionResult Messages()
+        public IActionResult SwitchTheme(int id)
         {
-            string email = User.FindFirst(x => x.Type == ClaimsIdentity.DefaultNameClaimType).Value;
-            int id = _context.Users.FirstOrDefault(x => x.Email == email).Id;
-            return View(_context.Messages.Include(x => x.Sender).Where(x => x.ReceiverId == id));
+            CookieOptions cookies = new CookieOptions();
+            cookies.Expires = DateTime.Now.AddDays(1);
+            Response.Cookies.Append("theme", id == 0 ? "light" : "dark", cookies);
+            return Redirect(Request.Headers["Referer"].ToString());
         }
-        */
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -68,7 +68,9 @@ namespace auth5.Models
                         StrFields = "Stephen King",
                         TextFields = "1996 serial novel by American writer Stephen King",
                         NumFields = "432|6",
-                        BoolFields = "Yes"
+                        BoolFields = "True",
+                        Comments = "",
+                        Likes = ""
                     },
                     new {
                         Id = 2,
@@ -77,7 +79,9 @@ namespace auth5.Models
                         StrFields = "William Golding",
                         TextFields = "1954 debut novel by Nobel Prize-winning British author William Golding",
                         NumFields = "224|12",
-                        BoolFields = "No"
+                        BoolFields = "False",
+                        Comments = "",
+                        Likes = ""
                     },
                     new {
                         Id = 3,
@@ -86,7 +90,9 @@ namespace auth5.Models
                         StrFields = "J.R.R. Tolkien",
                         TextFields = "The first of J.R.R. Tolkien published books",
                         NumFields = "304|19",
-                        BoolFields = "No"
+                        BoolFields = "False",
+                        Comments = "",
+                        Likes = ""
                     },
                 });
             });
@@ -102,7 +108,7 @@ namespace auth5.Models
                     StrFields = "Director",
                     TextFields = "Description|PG Rating",
                     NumFields = "Length(minutes)",
-                    BoolFields = ""
+                    BoolFields = "Owned"
                 });
                 c.OwnsMany(x => x.Items).HasData(new[] {
                     new {
@@ -112,7 +118,9 @@ namespace auth5.Models
                         StrFields = "Sam Raimi",
                         TextFields = "2007 American superhero film based on the Marvel Comics character Spider-Man|PG-13",
                         NumFields = "139",
-                        BoolFields = ""
+                        BoolFields = "True",
+                        Comments = "",
+                        Likes = ""
                     },
                     new {
                         Id = 5,
@@ -121,7 +129,9 @@ namespace auth5.Models
                         StrFields = "Tommy Wiseau",
                         TextFields = "2003 American independent drama film written, produced, executive produced and directed by Tommy Wiseau|R",
                         NumFields = "99",
-                        BoolFields = ""
+                        BoolFields = "True",
+                        Comments = "",
+                        Likes = ""
                     }
                 });
             });
@@ -136,7 +146,7 @@ namespace auth5.Models
                     ImgSrc = "",
                     StrFields = "Studio|Platform",
                     TextFields = "Description",
-                    NumFields = "Year of release",
+                    NumFields = "",
                     BoolFields = "Owned|Available"
                 });
                 c.OwnsMany(x => x.Items).HasData(new[] {
@@ -144,37 +154,45 @@ namespace auth5.Models
                         Id = 6,
                         ItemCollectionId = 3,
                         Title = "God Hand",
+                        NumFields = "",
                         StrFields = "Clover Studio|PS2",
                         TextFields = "PlayStation 2 action beat 'em up video game developed by Clover Studio and published by Capcom",
-                        NumFields = "2006",
-                        BoolFields = "No|No"
+                        BoolFields = "False|False",
+                        Comments = "",
+                        Likes = ""
                     },
                     new {
                         Id = 7,
                         ItemCollectionId = 3,
                         Title = "Psychonauts",
+                        NumFields = "",
                         StrFields = "Double Fine Productions|Windows,Xbox,PS2,Mac OS X,Linux",
                         TextFields = "2005 platform video game developed by Double Fine Productions",
-                        NumFields = "2005",
-                        BoolFields = "Yes|Yes"
+                        BoolFields = "True|True",
+                        Comments = "",
+                        Likes = ""
                     },
                     new {
                         Id = 8,
                         ItemCollectionId = 3,
                         Title = "Deponia",
+                        NumFields = "",
                         StrFields = "Daedalic Entertainment|Windows,Mac OS X,Linux,iOS,PS4,Nintendo Switch,Xbox One",
                         TextFields = "Graphic adventure video game developed and published by Daedalic Entertainment",
-                        NumFields = "2012",
-                        BoolFields = "No|Yes"
+                        BoolFields = "False|True",
+                        Comments = "",
+                        Likes = ""
                     },
                     new {
                         Id = 9,
                         ItemCollectionId = 3,
                         Title = "Yakuza 0",
+                        NumFields = "",
                         StrFields = "Ryu Ga Gotoku Studio|PS3,PS4,Windows,Xbox One,Amazon Luna",
                         TextFields = "Action-adventure game developed and published by Sega",
-                        NumFields = "2015",
-                        BoolFields = "Yes|Yes"
+                        BoolFields = "True|True",
+                        Comments = "",
+                        Likes = ""
                     }
                 });
             });

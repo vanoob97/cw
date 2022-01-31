@@ -69,7 +69,7 @@
                             <td>@item.Status</td>
                             <td>@(item.RoleId == 1 ? "Admin" : "User")</td>
                             <td style="border-top-style:hidden;border-bottom-style:hidden;border-right-style:hidden;">
-                                <a class="btn btn-primary" id="mypage" asp-area="" asp-action="MyPage" asp-controller="Account" asp-route-id="@item.Id">Personal Page</a>
+                                <a class="btn btn-primary" id="mypage" asp-area="" asp-action="PersonalPage" asp-controller="Account" asp-route-id="@item.Id">Personal Page</a>
                             </td>
                         </tr>    
                     }
@@ -79,7 +79,7 @@
     </div>
 </div>
 
-<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script>
     $(function(){
         $("input.select-all").click(function () {

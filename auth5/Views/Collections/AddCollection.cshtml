@@ -1,2 +1,62 @@
-﻿@{
+﻿@model auth5.Models.AddCollectionModel
+@{
 }
+
+<form asp-action="AddCollection" asp-controller="Collections" asp-anti-forgery="true">
+    <div class="container mt-5">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-sm-12 col-md-12 col-lg-4">
+                <h1 class="mb-3">Add Collection</h1>
+                <div asp-validation-summary="All" class="text-danger">
+                </div>
+                <input type="hidden" asp-for="Email" value="@ViewBag.Email" class="form-control"/>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Title">Title</label>
+                    <input type="text" asp-for="Title" class="form-control"/>
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Theme">Theme</label>
+                    <select asp-for="Theme" asp-items="@ViewBag.Themes"></select>
+                    <span asp-validation-for="Theme" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="Description">Description</label>
+                    <input type="text" asp-for="Description" class="form-control"/>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="StrFields">String fields</label>
+                    <input type="text" asp-for="StrFields" class="form-control"/>
+                    <input type="text" asp-for="StrFields" class="form-control"/>
+                    <input type="text" asp-for="StrFields" class="form-control"/>
+                    <span asp-validation-for="StrFields" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="TextFields">Text fields</label>
+                    <input type="text" asp-for="TextFields" class="form-control"/>
+                    <input type="text" asp-for="TextFields" class="form-control"/>
+                    <input type="text" asp-for="TextFields" class="form-control"/>
+                    <span asp-validation-for="TextFields" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="NumFields">Number fields</label>
+                    <input type="text" asp-for="NumFields" class="form-control"/>
+                    <input type="text" asp-for="NumFields" class="form-control"/>
+                    <input type="text" asp-for="NumFields" class="form-control"/>
+                    <span asp-validation-for="NumFields" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="BoolFields">Boolean fields</label>
+                    <input type="text" asp-for="BoolFields" class="form-control"/>
+                    <input type="text" asp-for="BoolFields" class="form-control"/>
+                    <input type="text" asp-for="BoolFields" class="form-control"/>
+                    <span asp-validation-for="BoolFields" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>                
+            </div>
+        </div>
+    </div>
+</form>

@@ -2,6 +2,7 @@
 using auth5.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
@@ -15,13 +16,24 @@ namespace auth5.Controllers
         {
             _context = context;
         }
+        [Authorize(Roles = "admin")]
         [HttpGet]
-        public async Task<IActionResult> MyPage(int id)
+        public async Task<IActionResult> PersonalPage(int id)
         {
             User user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
             string email = user.Email;
             List<ItemCollection> collections = await _context.Collections.Where(c => c.OwnerEmail == email).ToListAsync<ItemCollection>();
-            UserCollections uc =  new UserCollections { Email = email, Collections = collections };
+            UserCollections uc =  new UserCollections { Id = id, Email = email, Collections = collections };
+            return View("MyPage", uc);
+        }
+        [Authorize(Roles = "admin, user")]
+        [HttpGet]
+        public async Task<IActionResult> MyPage()
+        {
+            String email = User.FindFirst(x => x.Type == ClaimsIdentity.DefaultNameClaimType).Value;
+            User user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            List<ItemCollection> collections = await _context.Collections.Where(c => c.OwnerEmail == email).ToListAsync<ItemCollection>();
+            UserCollections uc = new UserCollections { Id = user.Id, Email = email, Collections = collections };
             return View(uc);
         }
         [HttpGet]
@@ -88,6 +100,7 @@ namespace auth5.Controllers
             await HttpContext.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public JsonResult Block(string[] id)
         {
@@ -96,22 +109,16 @@ namespace auth5.Controllers
                 _context.Users.Update(x);
             });
         }
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public JsonResult Delete(string[] id)
         {
-            /*
-            foreach (var msg in _context.Messages.
-                Where(x => id.Contains(x.SenderId.ToString()) || id.Contains(x.ReceiverId.ToString())))
-            {
-                _context.Messages.Remove(msg);
-            }
-            _context.SaveChanges();
-            */
             return ProcessUsers(id, (x) => {
                 _context.Users.Remove(x); 
             });
             return Json(true);
         }
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public JsonResult Unblock(string[] id)
         {
@@ -120,6 +127,7 @@ namespace auth5.Controllers
                 _context.Users.Update(x);
             });
         }
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public JsonResult Promote(string[] id)
         {
@@ -128,6 +136,7 @@ namespace auth5.Controllers
                 _context.Users.Update(x);
             });
         }
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public JsonResult Demote(string[] id)
         {
@@ -136,27 +145,6 @@ namespace auth5.Controllers
                 _context.Users.Update(x);
             });
         }
-        /*
-        [HttpPost]
-        public JsonResult Send(string[] id, string sender, string text)
-        {
-            int senderId = _context.Users.FirstOrDefault(x => x.Email == sender).Id;
-            var users = _context.Users.Where(u => id.Contains(u.Id.ToString()));
-            foreach (var user in users)
-            {
-                Message msg = new Message
-                {
-                    Text = text,
-                    SenderId = senderId,
-                    ReceiverId = user.Id,
-                    PostTime = DateTime.Now
-                };
-                _context.Messages.Add(msg);
-            }
-            _context.SaveChanges();
-            return Json(true);
-        }
-        */
         private JsonResult ProcessUsers(string[] id, Action<User> process) {
             var users = _context.Users
                 .Where(u => id.Contains(u.Id.ToString()) && u.Status != "Immune");
