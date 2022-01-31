@@ -39,7 +39,7 @@ namespace auth5.Controllers
                 _context.Collections.Update(collection);
                 await _context.SaveChangesAsync();
                 User user = await _context.Users.FirstOrDefaultAsync(u => u.Email == collection.OwnerEmail);
-                return RedirectToAction("MyPage", "Account", new { id = user.Id });
+                return RedirectToAction("PersonalPage", "Account", new { id = user.Id });
             }
             ViewBag.Collection = collection;
             return View();
@@ -77,7 +77,7 @@ namespace auth5.Controllers
                 _context.Collections.Add(collection);
                 await _context.SaveChangesAsync();
                 User user = await _context.Users.FirstOrDefaultAsync(u => u.Email == collection.OwnerEmail);
-                return RedirectToAction("MyPage", "Account", new { id = user.Id });
+                return RedirectToAction("PersonalPage", "Account", new { id = user.Id });
             }
             ViewBag.Email = model.Email;
             return View();
@@ -96,7 +96,7 @@ namespace auth5.Controllers
             User user = await _context.Users.FirstOrDefaultAsync(u => u.Email == collection.OwnerEmail);
             _context.Collections.Remove(collection);
             await _context.SaveChangesAsync();
-            return RedirectToAction("MyPage", "Account", new { id = user.Id });
+            return RedirectToAction("PersonalPage", "Account", new { id = user.Id });
         }
         [Authorize(Roles = "admin, user")]
         [HttpGet]
